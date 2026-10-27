@@ -1,0 +1,599 @@
+:root {
+  --fundo: #0e1013;          /* fundo da página */
+  --fundo-cartao: #15181d;   /* fundo das caixas (cartões) */
+  --borda: #2a2f37;          /* linhas e bordas */
+  --texto: #d6d9de;          /* texto principal */
+  --texto-fraco: #8b929c;    /* texto secundário (cinza) */
+  --verde: #8fd16a;          /* usuário no prompt, destaques */
+  --azul: #6cb6ff;           /* caminho no prompt, links */
+  --amarelo: #e6c07b;        /* títulos das seções */
+  --rosa: #f08fb0;           /* selo "em desenvolvimento" */
+
+  --fonte: "JetBrains Mono", "DejaVu Sans Mono", monospace;
+  --largura: 1280px;
+}
+
+/* ---
+   BASE
+   --- */
+
+/* faz a largura das caixas incluir a borda e o espaçamento interno */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* rolagem suave ao clicar nos links do menu */
+html {
+  scroll-behavior: smooth;
+  /* deixa um espaço em cima ao pular para uma seção, para o menu fixo não cobrir o título */
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--azul);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+}
+
+/* classes de cor usadas no logo */
+.cor-cinza {
+  color: var(--texto-fraco);
+}
+
+.cor-azul {
+  color: var(--azul);
+}
+
+/* ---
+   CABEÇALHO E MENU
+   --- */
+.topo {
+  /* "sticky" faz o menu ficar grudado no topo ao rolar a página */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  /* alinha o menu com as janelas, que têm no máximo 1280px de largura e 16px de margem */
+  padding: 14px max(16px, calc((100% - var(--largura)) / 2 + 16px));
+  background-color: var(--fundo);
+  border-bottom: 1px solid var(--borda);
+}
+
+.logo {
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.menu a {
+  color: var(--texto-fraco);
+}
+
+/* link da seção que está aparecendo na tela (o JavaScript coloca essa classe) */
+.menu a:hover,
+.menu a.ativo {
+  color: var(--verde);
+  text-decoration: none;
+}
+
+/* o botão "menu" só aparece no celular (veja o final do arquivo) */
+.botao-menu {
+  display: none;
+  background: none;
+  border: 1px solid var(--borda);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 14px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+/* ---
+   JANELAS DE TERMINAL
+   --- */
+
+/* as duas janelas ficam numa grade: 1 coluna no celular, 2 no computador (veja o final do arquivo) */
+.janelas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.janela {
+  /* "min-width: 0" impede que um texto longo estique a coluna da grade */
+  min-width: 0;
+  background-color: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* barra de cima da janela, com as três bolinhas e o título */
+.barra-janela {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background-color: var(--fundo-cartao);
+  border-bottom: 1px solid var(--borda);
+}
+
+.bolinhas {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.bolinhas i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: var(--borda);
+}
+
+.titulo-janela {
+  padding: 0 48px;
+  color: var(--texto-fraco);
+  font-size: 0.8rem;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.corpo-janela {
+  padding: 0 24px;
+}
+
+.secao {
+  padding: 28px 0 20px;
+  border-bottom: 1px dashed var(--borda);
+}
+
+.secao:last-child {
+  border-bottom: none;
+}
+
+/* linha de "prompt" que abre cada seção, imitando o terminal */
+.prompt {
+  margin: 0 0 20px;
+  color: var(--texto-fraco);
+  /* quebra comandos longos em vez de criar rolagem lateral no celular */
+  overflow-wrap: anywhere;
+}
+
+.usuario {
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.caminho {
+  color: var(--azul);
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: var(--texto);
+}
+
+/* títulos das partes, começando com "#" como no Markdown */
+h2 {
+  margin: 32px 0 12px;
+  font-size: 1.05rem;
+  color: var(--amarelo);
+}
+
+h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--texto);
+}
+
+/* nome em verde com a linha de tracinhos embaixo, no estilo do fastfetch */
+.apresentacao h1 {
+  font-size: 1.15rem;
+  color: var(--verde);
+}
+
+.tracinhos {
+  margin: 0;
+  color: var(--texto-fraco);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.subtitulo {
+  margin: 0 0 12px;
+  color: var(--texto-fraco);
+  font-style: italic;
+}
+
+.nota {
+  color: var(--texto-fraco);
+}
+
+/* ---
+   APRESENTAÇÃO (foto + texto lado a lado)
+   --- */
+.apresentacao {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.foto {
+  flex-shrink: 0;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 2px solid var(--verde);
+  border-radius: 4px;
+}
+
+/* ---
+   LISTAS
+   --- */
+
+/* lista com "-" no lugar da bolinha */
+.lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+}
+
+.lista li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--verde);
+}
+
+/* etiquetas (tecnologias, habilidades) */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 2px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background-color: var(--fundo-cartao);
+  font-size: 0.85rem;
+}
+
+/* formação em forma de linha do tempo */
+.linha-tempo {
+  margin: 0;
+  padding: 0 0 0 16px;
+  list-style: none;
+  border-left: 2px solid var(--borda);
+}
+
+.linha-tempo li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.data {
+  color: var(--verde);
+  font-size: 0.85rem;
+}
+
+.local {
+  color: var(--texto-fraco);
+  font-size: 0.9rem;
+}
+
+/* espaço entre o nome da empresa e a descrição da experiência */
+.linha-tempo .local + span {
+  margin-top: 4px;
+}
+
+/* ---
+   CARTÕES (projetos e experiências)
+   --- */
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  background-color: var(--fundo-cartao);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+.cartao p {
+  margin: 0;
+}
+
+.cartao-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.selo {
+  color: var(--verde);
+  font-size: 0.8rem;
+}
+
+.selo-dev {
+  color: var(--rosa);
+}
+
+.empresa {
+  color: var(--texto-fraco);
+}
+
+/* links no final dos cartões, como [ site ] [ código ] */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: auto;
+}
+
+/* grade de cartões: quantas colunas couberem, cada uma com pelo menos 240px */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.grade .cartao {
+  margin-bottom: 0;
+}
+
+/* ficha do projeto API: rótulo em cima, descrição embaixo */
+.ficha {
+  margin: 0;
+}
+
+.ficha dt {
+  margin-top: 14px;
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.ficha dt:first-child {
+  margin-top: 0;
+}
+
+.ficha dd {
+  margin: 4px 0 0;
+}
+
+/* prompt com cursor no fim de cada janela */
+.prompt-final {
+  padding: 20px 0 24px;
+  margin: 0;
+}
+
+/* botão que parece link, como o [ ver detalhes ] */
+.botao-link {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--azul);
+  font-family: var(--fonte);
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.botao-link:hover {
+  text-decoration: underline;
+}
+
+/* ---
+   JANELA DE DETALHES (abre por cima da página)
+   --- */
+.janela-detalhes {
+  /* o <dialog> vem com espaçamento e cor próprios do navegador; aqui usamos os nossos */
+  padding: 0;
+  width: min(760px, calc(100% - 24px));
+  max-height: calc(100vh - 48px);
+  color: var(--texto);
+}
+
+/* quando está aberta, a barra fica parada em cima e só o texto rola */
+.janela-detalhes[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.janela-detalhes .corpo-janela {
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+/* fundo escurecido atrás da janela */
+.janela-detalhes::backdrop {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.botao-fechar {
+  position: absolute;
+  right: 10px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--texto-fraco);
+  font-family: var(--fonte);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.botao-fechar:hover {
+  color: var(--rosa);
+}
+
+/* ---
+   CONTATO
+   --- */
+.contatos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contatos li {
+  margin-bottom: 8px;
+}
+
+.rotulo {
+  display: inline-block;
+  min-width: 100px;
+  color: var(--texto-fraco);
+}
+
+/* cursor piscando no fim da página */
+.cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  vertical-align: text-bottom;
+  background-color: var(--texto);
+  animation: piscar 1s steps(1) infinite;
+}
+
+@keyframes piscar {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* remove cursor piscando com "menos animação" */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cursor {
+    animation: none;
+  }
+}
+
+/* ---
+   RODAPÉ
+   --- */
+.rodape {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--texto-fraco);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--borda);
+}
+
+/* ---
+   COMPUTADOR (telas com 1000px ou mais): duas janelas lado a lado
+   --- */
+@media (min-width: 1000px) {
+  .janelas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---
+   CELULAR (telas com até 700px de largura)
+   --- */
+@media (max-width: 700px) {
+  body {
+    font-size: 14px;
+  }
+
+  .botao-menu {
+    display: block;
+  }
+
+  /* o menu fica escondido até apertar o botão */
+  .menu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    padding: 8px 0;
+  }
+
+  /* o JavaScript coloca a classe "aberto" quando o botão é apertado */
+  .menu.aberto {
+    display: flex;
+  }
+
+  /* foto em cima do texto */
+  .apresentacao {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .janelas {
+    padding: 16px 12px 32px;
+  }
+
+  .corpo-janela {
+    padding: 0 16px;
+  }
+
+  .foto {
+    width: 110px;
+    height: 110px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+}
