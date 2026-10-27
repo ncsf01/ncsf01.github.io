@@ -18,7 +18,7 @@ Meu portfólio acadêmico e pessoal, feito para o curso de Desenvolvimento de So
 - JavaScript (menu no celular e janela de detalhes)
 - Fonte JetBrains Mono (Google Fonts)
 
-O visual imita um terminal Linux. Todas as cores ficam em variáveis no começo do `css/style.css`.
+O visual imita um terminal Linux.
 
 ## Estrutura
 
