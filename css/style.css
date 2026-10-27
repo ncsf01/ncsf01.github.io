@@ -502,13 +502,15 @@ h3 {
 }
 
 /* cursor piscando no fim da página */
+/* o cursor é um "espaço" com fundo claro: assim ele tem exatamente o tamanho
+   de uma letra da fonte, como o cursor de bloco de um terminal */
 .cursor {
-  display: inline-block;
-  width: 9px;
-  height: 1.1em;
-  vertical-align: text-bottom;
   background-color: var(--texto);
   animation: piscar 1s steps(1) infinite;
+}
+
+.cursor::before {
+  content: "\00a0"; /* espaço que não quebra a linha */
 }
 
 @keyframes piscar {
