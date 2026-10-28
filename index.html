@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body>
+  <body class="fundo-grade destaque-terminal">
     <!-- --- CABEÇALHO E MENU --- -->
     <header class="topo">
       <a class="logo" href="#apresentacao">ncsf01@www<span class="cor-cinza">:</span><span class="cor-azul">~</span><span class="cor-cinza">$</span></a>
@@ -39,15 +39,14 @@
 
       <nav id="menu" class="menu" aria-label="Seções do portfólio">
         <a href="#apresentacao">./apresentacao</a>
+        <a href="#projetos">./projetos</a>
         <a href="#curriculo">./curriculo</a>
         <a href="#contato">./contato</a>
-        <a href="#projetos">./projetos</a>
       </nav>
     </header>
 
-    <!-- as duas "janelas de terminal": lado a lado no computador, uma embaixo da outra no celular -->
+    <!-- uma janela de terminal só, com todas as seções -->
     <main class="janelas">
-      <!-- --- JANELA DA ESQUERDA: quem sou eu --- -->
       <div class="janela">
         <div class="barra-janela" aria-hidden="true">
           <span class="bolinhas"><i></i><i></i><i></i></span>
@@ -59,16 +58,17 @@
           <section id="apresentacao" class="secao">
             <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ whoami</p>
 
+            <!-- foto ao lado do nome, com a linha de tracinhos embaixo do nome -->
             <div class="apresentacao">
               <img
                 class="foto"
                 src="https://github.com/ncsf01.png"
                 alt="Foto de Nícolas César Silva Ferreira"
-                width="140"
-                height="140"
+                width="200"
+                height="200"
               />
 
-              <div>
+              <div class="neofetch">
                 <h1>Nícolas César Silva Ferreira</h1>
                 <p class="tracinhos" aria-hidden="true">----------------------------</p>
                 <p class="subtitulo">aka nickmouse 🐭</p>
@@ -84,7 +84,7 @@
               Sou formado em Design de Games e trabalhei alguns anos com
               suporte de TI. Gosto de entender como os computadores e seus programas
               funcionam, e de criar pequenas ferramentas para facilitar o uso das coisas
-              de que gosto.
+              de que gosto, como RPG de mesa.
             </p>
 
             <h2># objetivos</h2>
@@ -105,128 +105,13 @@
               <li>Desenvolvimento web</li>
               <li>Análise de dados</li>
               <li>Automação com Python e scripts</li>
+              <li>RPG de mesa</li>
             </ul>
           </section>
 
-          <!-- --- INFORMAÇÕES CURRICULARES --- -->
-          <section id="curriculo" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ cat curriculo.txt</p>
-
-            <h2># experiência profissional</h2>
-            <ul class="linha-tempo">
-              <li>
-                <span class="data">11/2022 – 01/2024</span>
-                <strong>Analista de Redes e Comunicação de Dados</strong>
-                <span class="local">SC SJC Comércio de Roupas LTDA (lojas Polo Club)</span>
-                <span>
-                  Auxiliar de TI responsável pelo cadastro de produtos e
-                  funcionários no ERP TOTVS Moda e pelo suporte helpdesk às lojas.
-                </span>
-              </li>
-              <li>
-                <span class="data">08/2016 – 12/2018</span>
-                <strong>Administrador do Núcleo de Games</strong>
-                <span class="local">Universidade Anhembi Morumbi</span>
-                <span>
-                  Responsável pela distribuição e conservação dos jogos e
-                  computadores do Núcleo de Games da universidade.
-                </span>
-              </li>
-            </ul>
-
-            <h2># formação</h2>
-            <ul class="linha-tempo">
-              <li>
-                <span class="data">2026 – atual</span>
-                <strong>Desenvolvimento de Software Multiplataforma</strong>
-                <span class="local">FATEC São José dos Campos · cursando</span>
-              </li>
-              <li>
-                <span class="data">2022 – 2024</span>
-                <strong>Gestão de Tecnologia da Informação</strong>
-                <span class="local">Unifeob</span>
-              </li>
-              <li>
-                <span class="data">2015 – 2018</span>
-                <strong>Design de Games</strong>
-                <span class="local">Universidade Anhembi Morumbi</span>
-              </li>
-              <li>
-                <span class="data">2009 – 2011</span>
-                <strong>Ensino Médio e Técnico em Informática</strong>
-                <span class="local">ETEP</span>
-              </li>
-            </ul>
-
-            <h2># certificações e cursos</h2>
-            <ul class="lista">
-              <li>Curso de Informática · ETEP</li>
-              <li>The Complete Full-Stack Web Development Bootcamp · Udemy (em andamento)</li>
-            </ul>
-
-            <h2># hard skills</h2>
-            <ul class="tags">
-              <li>Python</li>
-              <li>JavaScript</li>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>Bootstrap</li>
-              <li>C#</li>
-              <li>SQL</li>
-              <li>Bash</li>
-              <li>Linux</li>
-              <li>Git e GitHub</li>
-              <li>Redes</li>
-              <li>Hardware</li>
-            </ul>
-
-            <h2># soft skills</h2>
-            <ul class="tags">
-              <li>Trabalho em equipe</li>
-              <li>Resolução de problemas</li>
-              <li>Comunicação</li>
-              <li>Adaptabilidade</li>
-            </ul>
-
-            <h2># idiomas</h2>
-            <ul class="lista">
-              <li>Português · nativo</li>
-              <li>Inglês · fluente</li>
-            </ul>
-          </section>
-
-          <!-- --- CONTATO --- -->
-          <section id="contato" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ contato</p>
-
-            <ul class="contatos">
-              <li>
-                <span class="rotulo">GitHub</span>
-                <a href="https://github.com/ncsf01" target="_blank" rel="noopener noreferrer">github.com/ncsf01</a>
-              </li>
-              <li>
-                <span class="rotulo">LinkedIn</span>
-                <a href="https://www.linkedin.com/in/nicolascsf/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nicolascsf</a>
-              </li>
-            </ul>
-          </section>
-
-          <!-- linha final piscando como um terminal esperando um comando -->
-          <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ <span class="cursor" aria-hidden="true"></span></p>
-        </div>
-      </div>
-
-      <!-- --- JANELA DA DIREITA: projetos --- -->
-      <div class="janela">
-        <div class="barra-janela" aria-hidden="true">
-          <span class="bolinhas"><i></i><i></i><i></i></span>
-          <span class="titulo-janela">ncsf01@www: ~/projetos</span>
-        </div>
-
-        <div class="corpo-janela">
-          <!-- --- PROJETOS ACADÊMICOS E PESSOAIS --- -->
+          <!-- --- PROJETOS (o projeto API fica em "acadêmicos") --- -->
           <section id="projetos" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/projetos</span>$ ls</p>
+            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ ls projetos/</p>
 
             <h2># acadêmicos</h2>
 
@@ -378,7 +263,111 @@
             </div>
           </section>
 
-          <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/projetos</span>$ <span class="cursor" aria-hidden="true"></span></p>
+          <!-- --- INFORMAÇÕES CURRICULARES --- -->
+          <section id="curriculo" class="secao">
+            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ cat curriculo.txt</p>
+
+            <h2># experiência profissional</h2>
+            <ul class="linha-tempo">
+              <li>
+                <span class="data">11/2022 – 01/2024</span>
+                <strong>Analista de Redes e Comunicação de Dados</strong>
+                <span class="local">SC SJC Comércio de Roupas LTDA (lojas Polo Club)</span>
+                <span>
+                  Auxiliar de TI responsável pelo cadastro de produtos e
+                  funcionários no ERP TOTVS Moda e pelo suporte helpdesk às lojas.
+                </span>
+              </li>
+              <li>
+                <span class="data">08/2016 – 12/2018</span>
+                <strong>Administrador do Núcleo de Games</strong>
+                <span class="local">Universidade Anhembi Morumbi</span>
+                <span>
+                  Responsável pela distribuição e conservação dos jogos e
+                  computadores do Núcleo de Games da universidade.
+                </span>
+              </li>
+            </ul>
+
+            <h2># formação</h2>
+            <ul class="linha-tempo">
+              <li>
+                <span class="data">2026 – atual</span>
+                <strong>Desenvolvimento de Software Multiplataforma</strong>
+                <span class="local">FATEC São José dos Campos · cursando</span>
+              </li>
+              <li>
+                <span class="data">2022 – 2024</span>
+                <strong>Gestão de Tecnologia da Informação</strong>
+                <span class="local">Unifeob</span>
+              </li>
+              <li>
+                <span class="data">2015 – 2018</span>
+                <strong>Design de Games</strong>
+                <span class="local">Universidade Anhembi Morumbi</span>
+              </li>
+              <li>
+                <span class="data">2009 – 2011</span>
+                <strong>Ensino Médio e Técnico em Informática</strong>
+                <span class="local">ETEP</span>
+              </li>
+            </ul>
+
+            <h2># certificações e cursos</h2>
+            <ul class="lista">
+              <li>Curso de Informática · ETEP</li>
+              <li>The Complete Full-Stack Web Development Bootcamp · Udemy (em andamento)</li>
+            </ul>
+
+            <h2># hard skills</h2>
+            <ul class="tags">
+              <li>Python</li>
+              <li>JavaScript</li>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Bootstrap</li>
+              <li>C#</li>
+              <li>SQL</li>
+              <li>Bash</li>
+              <li>Linux</li>
+              <li>Git e GitHub</li>
+              <li>Redes</li>
+              <li>Hardware</li>
+            </ul>
+
+            <h2># soft skills</h2>
+            <ul class="tags">
+              <li>Trabalho em equipe</li>
+              <li>Resolução de problemas</li>
+              <li>Comunicação</li>
+              <li>Adaptabilidade</li>
+            </ul>
+
+            <h2># idiomas</h2>
+            <ul class="lista">
+              <li>Português · nativo</li>
+              <li>Inglês · fluente</li>
+            </ul>
+          </section>
+
+          <!-- --- CONTATO --- -->
+          <section id="contato" class="secao">
+            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ contato</p>
+
+            <ul class="contatos">
+              <li>
+                <span class="rotulo">GitHub</span>
+                <a href="https://github.com/ncsf01" target="_blank" rel="noopener noreferrer">github.com/ncsf01</a>
+              </li>
+              <li>
+                <span class="rotulo">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/nicolascsf/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nicolascsf</a>
+              </li>
+            </ul>
+          </section>
+
+          <!-- linha final piscando como um terminal esperando um comando -->
+          <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ <span class="cursor" aria-hidden="true"></span></p>
         </div>
       </div>
     </main>

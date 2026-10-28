@@ -8,18 +8,55 @@ botaoMenu.addEventListener("click", function () {
   botaoMenu.setAttribute("aria-expanded", estaAberto);
 });
 
-// ao clicar num link: fecha o menu do celular e deixa só esse link verde
+// ao clicar num link, o menu do celular fecha
 linksDoMenu.forEach(function (link) {
   link.addEventListener("click", function () {
     menu.classList.remove("aberto");
     botaoMenu.setAttribute("aria-expanded", "false");
-
-    linksDoMenu.forEach(function (outroLink) {
-      outroLink.classList.remove("ativo");
-    });
-    link.classList.add("ativo");
   });
 });
+
+// --- VERDINHO NO MENU: mostra em qual parte da página você está ---
+
+const secoes = document.querySelectorAll(".secao");
+
+// deixa verde só o link da seção com esse id
+function marcarNoMenu(idDaSecao) {
+  linksDoMenu.forEach(function (link) {
+    const apontaParaSecao = link.getAttribute("href") === "#" + idDaSecao;
+    link.classList.toggle("ativo", apontaParaSecao);
+  });
+}
+
+// o "IntersectionObserver" avisa quando uma seção passa pela faixa do meio da tela
+const observador = new IntersectionObserver(
+  function (entradas) {
+    entradas.forEach(function (entrada) {
+      if (entrada.isIntersecting) {
+        marcarNoMenu(entrada.target.id);
+      }
+    });
+  },
+  { rootMargin: "-45% 0px -50% 0px" }
+);
+
+secoes.forEach(function (secao) {
+  observador.observe(secao);
+});
+
+// o contato é curto e fica no fim da página: pode nunca chegar no meio da tela,
+// então, quando a página chega ao final, marcamos o contato
+window.addEventListener("scroll", function () {
+  const chegouNoFim =
+    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+  if (chegouNoFim) {
+    marcarNoMenu("contato");
+  }
+});
+
+// ao abrir a página, a apresentação já começa marcada
+marcarNoMenu("apresentacao");
 
 // --- JANELA DE DETALHES ---
 
