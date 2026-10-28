@@ -14,6 +14,16 @@
 
   --fonte: "JetBrains Mono", "DejaVu Sans Mono", monospace;
   --largura: 1200px;
+
+  /* as 16 cores do terminal (tema padrão do GNOME Terminal), usadas na barrinha de cores */
+  --term-0: #171421;  --term-8: #5e5c64;
+  --term-1: #c01c28;  --term-9: #f66151;
+  --term-2: #26a269;  --term-10: #33d17a;
+  --term-3: #a2734c;  --term-11: #e9ad0c;
+  --term-4: #12488b;  --term-12: #2a7bde;
+  --term-5: #a347ba;  --term-13: #c061cb;
+  --term-6: #2aa1b3;  --term-14: #33c7de;
+  --term-7: #d0cfcc;  --term-15: #ffffff;
 }
 
 /* ---
@@ -253,6 +263,31 @@ h3 {
 .neofetch {
   min-width: 0;
 }
+
+/* barrinha com as 16 cores: uma grade de 8 colunas, que vira 2 fileiras */
+.cores {
+  display: grid;
+  grid-template-columns: repeat(8, 26px);
+  grid-auto-rows: 18px;
+  margin: 4px 0 20px;
+}
+
+.cores span:nth-child(1)  { background-color: var(--term-0); }
+.cores span:nth-child(2)  { background-color: var(--term-1); }
+.cores span:nth-child(3)  { background-color: var(--term-2); }
+.cores span:nth-child(4)  { background-color: var(--term-3); }
+.cores span:nth-child(5)  { background-color: var(--term-4); }
+.cores span:nth-child(6)  { background-color: var(--term-5); }
+.cores span:nth-child(7)  { background-color: var(--term-6); }
+.cores span:nth-child(8)  { background-color: var(--term-7); }
+.cores span:nth-child(9)  { background-color: var(--term-8); }
+.cores span:nth-child(10) { background-color: var(--term-9); }
+.cores span:nth-child(11) { background-color: var(--term-10); }
+.cores span:nth-child(12) { background-color: var(--term-11); }
+.cores span:nth-child(13) { background-color: var(--term-12); }
+.cores span:nth-child(14) { background-color: var(--term-13); }
+.cores span:nth-child(15) { background-color: var(--term-14); }
+.cores span:nth-child(16) { background-color: var(--term-15); }
 
 .subtitulo {
   margin: 0 0 8px;
