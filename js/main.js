@@ -1,62 +1,110 @@
-const botaoMenu = document.querySelector(".botao-menu");
-const menu = document.querySelector("#menu");
+// --- WORKSPACES ---
+// a "esteira" que rola para os lados e os 4 workspaces dentro dela
+const esteira = document.querySelector("#workspaces");
+const workspaces = [...document.querySelectorAll(".workspace")];
 const linksDoMenu = document.querySelectorAll("#menu a");
 
-botaoMenu.addEventListener("click", function () {
-  const estaAberto = menu.classList.toggle("aberto");
+// quem pede ao sistema "menos animação" troca de workspace sem deslizar
+const menosAnimacao = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  botaoMenu.setAttribute("aria-expanded", estaAberto);
-});
+// descobre em qual workspace (0, 1, 2 ou 3) está a seção com esse id
+function indiceDaSecao(idDaSecao) {
+  if (!idDaSecao) {
+    return -1; // endereço sem "#alguma-coisa"
+  }
 
-// ao clicar num link, o menu do celular fecha
-linksDoMenu.forEach(function (link) {
-  link.addEventListener("click", function () {
-    menu.classList.remove("aberto");
-    botaoMenu.setAttribute("aria-expanded", "false");
-  });
-});
-
-// --- VERDINHO NO MENU: mostra em qual parte da página você está ---
-
-const secoes = document.querySelectorAll(".secao");
-
-// deixa verde só o link da seção com esse id
-function marcarNoMenu(idDaSecao) {
-  linksDoMenu.forEach(function (link) {
-    const apontaParaSecao = link.getAttribute("href") === "#" + idDaSecao;
-    link.classList.toggle("ativo", apontaParaSecao);
+  return workspaces.findIndex(function (workspace) {
+    return workspace.querySelector("#" + idDaSecao) !== null;
   });
 }
 
-// o "IntersectionObserver" avisa quando uma seção passa pela faixa do meio da tela
+// desliza a esteira até o workspace de número "indice"
+function irPara(indice, animar) {
+  if (indice < 0 || indice >= workspaces.length) {
+    return; // não existe workspace antes do primeiro nem depois do último
+  }
+
+  esteira.scrollTo({
+    left: indice * esteira.clientWidth,
+    behavior: animar && !menosAnimacao ? "smooth" : "auto",
+  });
+}
+
+// qual workspace está na tela agora (arredonda a posição da esteira)
+function workspaceAtual() {
+  return Math.round(esteira.scrollLeft / esteira.clientWidth);
+}
+
+// deixa verde no menu só o workspace com esse número
+function marcarNoMenu(indice) {
+  linksDoMenu.forEach(function (link, posicao) {
+    link.classList.toggle("ativo", posicao === indice);
+  });
+}
+
+// qualquer link que aponte para uma seção ("#projetos", "#contato"...) troca de workspace
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+  link.addEventListener("click", function (evento) {
+    const idDaSecao = link.getAttribute("href").slice(1); // tira o "#"
+    const indice = indiceDaSecao(idDaSecao);
+
+    if (indice !== -1) {
+      evento.preventDefault(); // em vez de pular, a gente desliza
+      irPara(indice, true);
+      // muda o endereço (ex.: ".../#projetos") sem recarregar, para dar para compartilhar o link
+      history.replaceState(null, "", "#" + idDaSecao);
+    }
+  });
+});
+
+// o "IntersectionObserver" avisa qual workspace ocupa a maior parte da tela
 const observador = new IntersectionObserver(
   function (entradas) {
     entradas.forEach(function (entrada) {
       if (entrada.isIntersecting) {
-        marcarNoMenu(entrada.target.id);
+        marcarNoMenu(workspaces.indexOf(entrada.target));
       }
     });
   },
-  { rootMargin: "-45% 0px -50% 0px" }
+  { root: esteira, threshold: 0.6 }
 );
 
-secoes.forEach(function (secao) {
-  observador.observe(secao);
+workspaces.forEach(function (workspace) {
+  observador.observe(workspace);
 });
 
-// o contato é curto e fica no fim da página: pode nunca chegar no meio da tela,
-// então, quando a página chega ao final, marcamos o contato
-window.addEventListener("scroll", function () {
-  const chegouNoFim =
-    window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+// setas ← e → do teclado trocam de workspace
+document.addEventListener("keydown", function (evento) {
+  const temJanelaAberta = document.querySelector("dialog[open]") !== null;
 
-  if (chegouNoFim) {
-    marcarNoMenu("contato");
+  if (temJanelaAberta) {
+    return; // com a janela de detalhes aberta, as setas não trocam de workspace
+  }
+
+  if (evento.key === "ArrowRight") {
+    evento.preventDefault();
+    irPara(workspaceAtual() + 1, true);
+  } else if (evento.key === "ArrowLeft") {
+    evento.preventDefault();
+    irPara(workspaceAtual() - 1, true);
   }
 });
 
-// ao abrir a página, a apresentação já começa marcada
-marcarNoMenu("apresentacao");
+// se a janela do navegador mudar de tamanho, continua no mesmo workspace
+let workspaceAntesDeRedimensionar = 0;
+
+esteira.addEventListener("scroll", function () {
+  workspaceAntesDeRedimensionar = workspaceAtual();
+});
+
+window.addEventListener("resize", function () {
+  irPara(workspaceAntesDeRedimensionar, false);
+});
+
+// ao abrir a página com um endereço tipo ".../#curriculo", já começa nesse workspace
+const indiceInicial = indiceDaSecao(location.hash.slice(1));
+irPara(indiceInicial === -1 ? 0 : indiceInicial, false);
+marcarNoMenu(indiceInicial === -1 ? 0 : indiceInicial);
 
 // --- JANELA DE DETALHES ---
 

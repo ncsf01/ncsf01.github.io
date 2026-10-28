@@ -37,15 +37,19 @@
   box-sizing: border-box;
 }
 
-/* rolagem suave ao clicar nos links do menu */
-html {
-  scroll-behavior: smooth;
-  /* deixa um espaço em cima ao pular para uma seção, para o menu fixo não cobrir o título */
-  scroll-padding-top: 80px;
+/* a página inteira ocupa exatamente a tela: quem rola são os workspaces, não a página */
+html,
+body {
+  height: 100%;
 }
 
 body {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* "dvh" é a altura real da tela, que no celular desconta a barra do navegador */
+  height: 100dvh;
+  overflow: hidden;
   /* a cor de fundo da página vem do tema escolhido (veja "TEMA" no fim do arquivo) */
   background-color: var(--fundo);
   color: var(--texto);
@@ -82,17 +86,17 @@ h3 {
    CABEÇALHO E MENU
    --- */
 .topo {
-  /* "sticky" faz o menu ficar grudado no topo ao rolar a página */
-  position: sticky;
-  top: 0;
+  /* o cabeçalho não encolhe: os workspaces ocupam o resto da altura */
+  flex-shrink: 0;
+  position: relative;
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px 24px;
-  /* alinha o menu com a janela, que tem no máximo 1200px de largura e 16px de margem */
-  padding: 14px max(16px, calc((100% - var(--largura)) / 2 + 16px));
+  /* alinha o logo e a barra de workspaces com as bordas da janela (no máximo 1200px de largura) */
+  padding: 14px max(16px, calc((100% - var(--largura)) / 2));
   /* fundo meio transparente e desfocado, deixando o fundo da página aparecer de leve */
   background-color: rgba(14, 16, 19, 0.85);
   backdrop-filter: blur(6px);
@@ -108,48 +112,97 @@ h3 {
   text-decoration: none;
 }
 
+/* barra de workspaces, no estilo da barra do i3: cada workspace é uma caixinha */
 .menu {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
+  gap: 6px;
 }
 
 .menu a {
+  padding: 2px 10px;
   color: var(--texto-fraco);
+  border: 1px solid var(--borda);
+  border-radius: 3px;
 }
 
-/* link da seção que está aparecendo na tela (o JavaScript coloca essa classe) */
-.menu a:hover,
-.menu a.ativo {
-  color: var(--destaque);
+.menu a:hover {
+  color: var(--texto);
+  border-color: var(--texto-fraco);
   text-decoration: none;
 }
 
-/* o botão "menu" só aparece no celular (veja o final do arquivo) */
-.botao-menu {
-  display: none;
-  background: none;
-  border: 1px solid var(--borda);
-  color: var(--texto);
-  font-family: var(--fonte);
-  font-size: 14px;
-  padding: 4px 12px;
-  cursor: pointer;
+/* workspace que está na tela (o JavaScript coloca essa classe): caixinha verde, como no i3 */
+.menu a.ativo {
+  color: var(--fundo);
+  background-color: var(--destaque);
+  border-color: var(--destaque);
+  font-weight: 700;
 }
 
 /* ---
    JANELAS DE TERMINAL
    --- */
 
-/* área onde fica a janela, centralizada na página */
-.janelas {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  align-items: start;
+/* ---
+   WORKSPACES
+   --- */
+
+/* a "esteira" com os 4 workspaces lado a lado; ela rola para os lados */
+.workspaces {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* "scroll-snap": ao soltar o dedo ou a rodinha, a esteira para encaixada num workspace */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* evita que deslizar além do último workspace vire o gesto de "voltar" do navegador */
+  overscroll-behavior-x: contain;
+  /* esconde a barra de rolagem de lado: quem navega são os números e as setas */
+  scrollbar-width: none;
+}
+
+.workspaces::-webkit-scrollbar {
+  display: none;
+}
+
+/* cada workspace ocupa a largura toda da tela e rola para baixo sozinho */
+.workspace {
+  flex: 0 0 100%;
+  height: 100%;
+  overflow-y: auto;
+  scroll-snap-align: start;
+  /* não deixa pular dois workspaces de uma vez num deslize rápido */
+  scroll-snap-stop: always;
+  padding: 24px 16px 32px;
+}
+
+.workspace > .janela {
   max-width: var(--largura);
   margin: 0 auto;
-  padding: 24px 16px 40px;
+}
+
+/* links [ ← anterior ] e [ próximo → ] no fim de cada janela */
+.ws-navegacao {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 20px;
+}
+
+/* quando só tem o link "próximo", ele fica na direita */
+.ws-proximo {
+  margin-left: auto;
+}
+
+.dica {
+  max-width: var(--largura);
+  margin: 12px auto 0;
+  color: var(--texto-fraco);
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .janela {
@@ -570,7 +623,7 @@ h3 {
 
 /* remove cursor piscando com "menos animação" */
 @media (prefers-reduced-motion: reduce) {
-  html {
+  .workspaces {
     scroll-behavior: auto;
   }
 
@@ -583,11 +636,10 @@ h3 {
    RODAPÉ
    --- */
 .rodape {
-  padding: 24px 16px;
+  padding: 16px 16px 0;
   text-align: center;
   color: var(--texto-fraco);
   font-size: 0.8rem;
-  border-top: 1px solid var(--borda);
 }
 
 /* ---
@@ -598,21 +650,18 @@ h3 {
     font-size: 14px;
   }
 
-  .botao-menu {
-    display: block;
+  /* no celular, as margens do cabeçalho acompanham as da janela (10px) */
+  .topo {
+    padding: 10px;
   }
 
-  /* o menu fica escondido até apertar o botão */
-  .menu {
+  /* no celular, os workspaces mostram só o número; o que está na tela mostra o nome também */
+  .ws-nome {
     display: none;
-    width: 100%;
-    flex-direction: column;
-    padding: 8px 0;
   }
 
-  /* o JavaScript coloca a classe "aberto" quando o botão é apertado */
-  .menu.aberto {
-    display: flex;
+  .menu a.ativo .ws-nome {
+    display: inline;
   }
 
   /* foto em cima do texto */
@@ -622,8 +671,8 @@ h3 {
     gap: 20px;
   }
 
-  .janelas {
-    padding: 16px 12px 32px;
+  .workspace {
+    padding: 12px 10px 24px;
   }
 
   .corpo-janela {

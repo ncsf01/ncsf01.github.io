@@ -24,358 +24,424 @@
   </head>
 
   <body class="fundo-grade destaque-terminal">
-    <!-- --- CABEÇALHO E MENU --- -->
+    <!-- --- CABEÇALHO: logo e a barra de workspaces (estilo i3) --- -->
     <header class="topo">
       <a class="logo" href="#apresentacao">ncsf01@www<span class="cor-cinza">:</span><span class="cor-azul">~</span><span class="cor-cinza">$</span></a>
 
-      <button
-        class="botao-menu"
-        type="button"
-        aria-expanded="false"
-        aria-controls="menu"
-      >
-        menu
-      </button>
-
-      <nav id="menu" class="menu" aria-label="Seções do portfólio">
-        <a href="#apresentacao">./apresentacao</a>
-        <a href="#projetos">./projetos</a>
-        <a href="#curriculo">./curriculo</a>
-        <a href="#contato">./contato</a>
+      <nav id="menu" class="menu" aria-label="Workspaces">
+        <a href="#apresentacao"><span class="ws-num">1</span><span class="ws-nome">:whoami</span></a>
+        <a href="#projetos"><span class="ws-num">2</span><span class="ws-nome">:projetos</span></a>
+        <a href="#curriculo"><span class="ws-num">3</span><span class="ws-nome">:curriculo</span></a>
+        <a href="#contato"><span class="ws-num">4</span><span class="ws-nome">:contato</span></a>
       </nav>
     </header>
 
-    <!-- uma janela de terminal só, com todas as seções -->
-    <main class="janelas">
-      <div class="janela">
-        <div class="barra-janela" aria-hidden="true">
-          <span class="bolinhas"><i></i><i></i><i></i></span>
-          <span class="titulo-janela">ncsf01@www: ~</span>
-        </div>
+    <!-- --- WORKSPACES ---
+         cada seção fica num "workspace" do tamanho da tela; eles ficam lado a lado
+         e a página desliza para os lados, como trocar de workspace no Linux -->
+    <main id="workspaces" class="workspaces">
+      <!-- ===== WORKSPACE 1: whoami ===== -->
+      <div class="workspace">
+        <div class="janela">
+          <div class="barra-janela" aria-hidden="true">
+            <span class="bolinhas"><i></i><i></i><i></i></span>
+            <span class="titulo-janela">[1] ncsf01@www: ~</span>
+          </div>
 
-        <div class="corpo-janela">
-          <!-- --- APRESENTAÇÃO --- -->
-          <section id="apresentacao" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ whoami</p>
+          <div class="corpo-janela">
+            <!-- --- APRESENTAÇÃO --- -->
+            <section id="apresentacao" class="secao">
+              <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ whoami</p>
 
-            <!-- foto ao lado do nome, com a linha de tracinhos embaixo do nome -->
-            <div class="apresentacao">
-              <img
-                class="foto"
-                src="https://github.com/ncsf01.png"
-                alt="Foto de Nícolas César Silva Ferreira"
-                width="200"
-                height="200"
-              />
+              <!-- foto ao lado do nome, com a linha de tracinhos embaixo do nome -->
+              <div class="apresentacao">
+                <img
+                  class="foto"
+                  src="https://github.com/ncsf01.png"
+                  alt="Foto de Nícolas César Silva Ferreira"
+                  width="200"
+                  height="200"
+                />
 
-              <div class="neofetch">
-                <h1>Nícolas César Silva Ferreira</h1>
-                <p class="tracinhos" aria-hidden="true">----------------------------</p>
-                <p class="subtitulo">aka nickmouse 🐭</p>
-                <p>
-                  Estudante de <strong>Desenvolvimento de Software Multiplataforma</strong>
-                  na FATEC São José dos Campos (Prof. Jessen Vidal), cursando o
-                  1º semestre (2026).
-                </p>
+                <div class="neofetch">
+                  <h1>Nícolas César Silva Ferreira</h1>
+                  <p class="tracinhos" aria-hidden="true">----------------------------</p>
+                  <p class="subtitulo">aka nickmouse 🐭</p>
+                  <p>
+                    Estudante de <strong>Desenvolvimento de Software Multiplataforma</strong>
+                    na FATEC São José dos Campos (Prof. Jessen Vidal), cursando o
+                    1º semestre (2026).
+                  </p>
 
-                <!-- as 16 cores do terminal, em duas fileiras, como no neofetch -->
-                <div class="cores" aria-hidden="true">
-                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  <!-- as 16 cores do terminal, em duas fileiras, como no neofetch -->
+                  <div class="cores" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <p>
-              Sou formado em Design de Games e trabalhei alguns anos com
-              suporte de TI. Gosto de entender como os computadores e seus programas
-              funcionam, e de criar pequenas ferramentas para facilitar o uso das coisas
-              de que gosto, como RPG de mesa.
-            </p>
+              <p>
+                Sou formado em Design de Games e trabalhei alguns anos com
+                suporte de TI. Gosto de entender como os computadores e seus programas
+                funcionam, e de criar pequenas ferramentas para facilitar o uso das coisas
+                de que gosto, como RPG de mesa.
+              </p>
 
-            <h2># objetivos</h2>
-            <ul class="lista">
-              <li>
-                <strong>Acadêmicos:</strong> concluir o curso de DSM e aprofundar
-                meus conhecimentos em desenvolvimento web e análise de dados.
-              </li>
-              <li>
-                <strong>Profissionais:</strong> conseguir um estágio como
-                desenvolvedor e crescer na área de desenvolvimento de software.
-              </li>
-            </ul>
+              <h2># objetivos</h2>
+              <ul class="lista">
+                <li>
+                  <strong>Acadêmicos:</strong> concluir o curso de DSM e aprofundar
+                  meus conhecimentos em desenvolvimento web e análise de dados.
+                </li>
+                <li>
+                  <strong>Profissionais:</strong> conseguir um estágio como
+                  desenvolvedor e crescer na área de desenvolvimento de software.
+                </li>
+              </ul>
 
-            <h2># áreas de interesse</h2>
-            <ul class="tags">
-              <li>Linux</li>
-              <li>Desenvolvimento web</li>
-              <li>Análise de dados</li>
-              <li>Automação com Python e scripts</li>
-              <li>RPG de mesa</li>
-            </ul>
-          </section>
+              <h2># áreas de interesse</h2>
+              <ul class="tags">
+                <li>Linux</li>
+                <li>Desenvolvimento web</li>
+                <li>Análise de dados</li>
+                <li>Automação com Python e scripts</li>
+                <li>RPG de mesa</li>
+              </ul>
+            </section>
 
-          <!-- --- PROJETOS (o projeto API fica em "acadêmicos") --- -->
-          <section id="projetos" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ ls projetos/</p>
+            <!-- links para o workspace anterior e o próximo -->
+            <nav class="ws-navegacao" aria-label="Trocar de workspace">
+              <a class="ws-proximo" href="#projetos">[ 2:projetos → ]</a>
+            </nav>
 
-            <h2># acadêmicos</h2>
+            <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ <span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </div>
 
-            <div class="grade">
-              <article id="projetos-api" class="cartao">
-                <div class="cartao-topo">
-                  <h3>Crédito Inclusivo</h3>
-                  <span class="selo">API · FATEC</span>
-                </div>
-                <p>
-                  Projeto integrado em equipe: um site que transforma os dados
-                  públicos do Banco Central e do IBGE em gráficos sobre crédito
-                  e inadimplência por região. Fui Scrum Master e desenvolvedor.
-                </p>
-                <ul class="tags">
-                  <li>Python</li>
-                  <li>Pandas</li>
-                  <li>Flask</li>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                </ul>
-                <div class="links">
-                  <!-- este botão abre a janela de detalhes (o <dialog> no fim da página) -->
-                  <button class="botao-link" type="button" data-abrir="detalhes-api">[ ver detalhes ]</button>
-                  <a href="https://github.com/ncsf01/dsm-api-1semestre-2026" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
+        <p class="dica">dica: deslize para os lados, use as setas ← → do teclado ou clique nos números lá em cima</p>
+      </div>
 
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>4D Handbook</h3>
-                  <span class="selo">FATEC</span>
-                </div>
-                <p>
-                  Site de divulgação de um livro sobre um estilo de RPG, com três
-                  páginas e layout responsivo.
-                </p>
-                <ul class="tags">
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>Bootstrap</li>
-                </ul>
-                <div class="links">
-                  <a href="https://ncsf01.github.io/4d-handbook/" target="_blank" rel="noopener noreferrer">[ site ]</a>
-                  <a href="https://github.com/ncsf01/4d-handbook" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
+      <!-- ===== WORKSPACE 2: projetos ===== -->
+      <div class="workspace">
+        <div class="janela">
+          <div class="barra-janela" aria-hidden="true">
+            <span class="bolinhas"><i></i><i></i><i></i></span>
+            <span class="titulo-janela">[2] ncsf01@www: ~/projetos</span>
+          </div>
 
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>Shell Scripts</h3>
-                  <span class="selo">FATEC</span>
-                </div>
-                <p>
-                  20 exercícios em Bash da matéria de Sistemas Operacionais e
-                  Redes: menus interativos com arquivos, usuários, permissões e
-                  processos.
-                </p>
-                <ul class="tags">
-                  <li>Bash</li>
-                  <li>Linux</li>
-                </ul>
-                <div class="links">
-                  <a href="https://github.com/ncsf01/shell-scripts" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
-            </div>
+          <div class="corpo-janela">
+            <!-- --- PROJETOS (o projeto API fica em "acadêmicos") --- -->
+            <section id="projetos" class="secao">
+              <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ ls projetos/</p>
 
-            <h2># pessoais</h2>
+              <h2># acadêmicos</h2>
 
-            <div class="grade">
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>Palácio dos Livros</h3>
-                  <span class="selo">no ar</span>
-                </div>
-                <p>
-                  App web pensado para o celular, que controla um estoque de livros
-                  estante por estante, com busca, ordem A–Z por autor e
-                  arrastar-e-soltar. Feito para a minha mãe para ajudar no catálogo de seu acervo.
-                </p>
-                <ul class="tags">
-                  <li>JavaScript</li>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>Firebase</li>
-                </ul>
-                <div class="links">
-                  <a href="https://ncsf01.github.io/book-palace/" target="_blank" rel="noopener noreferrer">[ site ]</a>
-                  <a href="https://github.com/ncsf01/book-palace" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
+              <div class="grade">
+                <article id="projetos-api" class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Crédito Inclusivo</h3>
+                    <span class="selo">API · FATEC</span>
+                  </div>
+                  <p>
+                    Projeto integrado em equipe: um site que transforma os dados
+                    públicos do Banco Central e do IBGE em gráficos sobre crédito
+                    e inadimplência por região. Fui Scrum Master e desenvolvedor.
+                  </p>
+                  <ul class="tags">
+                    <li>Python</li>
+                    <li>Pandas</li>
+                    <li>Flask</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                  </ul>
+                  <div class="links">
+                    <!-- este botão abre a janela de detalhes (o <dialog> no fim da página) -->
+                    <button class="botao-link" type="button" data-abrir="detalhes-api">[ ver detalhes ]</button>
+                    <a href="https://github.com/ncsf01/dsm-api-1semestre-2026" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
 
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>Ficha de personagem UNPC</h3>
-                  <span class="selo">no ar</span>
-                </div>
-                <p>
-                  Ficha online para um RPG de mesa, com gerenciador de personagens,
-                  rolador de dados, gerador aleatório e modo escuro.
-                </p>
-                <ul class="tags">
-                  <li>JavaScript</li>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                </ul>
-                <div class="links">
-                  <a href="https://ncsf01.github.io/unpc-character-sheet/" target="_blank" rel="noopener noreferrer">[ site ]</a>
-                  <a href="https://github.com/ncsf01/unpc-character-sheet" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>4D Handbook</h3>
+                    <span class="selo">FATEC</span>
+                  </div>
+                  <p>
+                    Site de divulgação de um livro sobre um estilo de RPG, com três
+                    páginas e layout responsivo.
+                  </p>
+                  <ul class="tags">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>Bootstrap</li>
+                  </ul>
+                  <div class="links">
+                    <a href="https://ncsf01.github.io/4d-handbook/" target="_blank" rel="noopener noreferrer">[ site ]</a>
+                    <a href="https://github.com/ncsf01/4d-handbook" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
 
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>Ficha de personagem Symbaroum</h3>
-                  <span class="selo selo-dev">em desenvolvimento</span>
-                </div>
-                <p>
-                  Ficha online para o RPG Symbaroum, com atributos, estatísticas
-                  de combate, corrupção e habilidades.
-                </p>
-                <ul class="tags">
-                  <li>JavaScript</li>
-                  <li>HTML</li>
-                  <li>CSS</li>
-                </ul>
-                <div class="links">
-                  <a href="https://ncsf01.github.io/symbaroum-character-sheet-v1/" target="_blank" rel="noopener noreferrer">[ versão 1 ]</a>
-                  <a href="https://github.com/ncsf01/symbaroum-character-sheet-v1" target="_blank" rel="noopener noreferrer">[ código ]</a>
-                </div>
-              </article>
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Shell Scripts</h3>
+                    <span class="selo">FATEC</span>
+                  </div>
+                  <p>
+                    20 exercícios em Bash da matéria de Sistemas Operacionais e
+                    Redes: menus interativos com arquivos, usuários, permissões e
+                    processos.
+                  </p>
+                  <ul class="tags">
+                    <li>Bash</li>
+                    <li>Linux</li>
+                  </ul>
+                  <div class="links">
+                    <a href="https://github.com/ncsf01/shell-scripts" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
+              </div>
 
-              <article class="cartao">
-                <div class="cartao-topo">
-                  <h3>Snap Tracker</h3>
-                  <span class="selo selo-dev">em desenvolvimento</span>
-                </div>
-                <p>
-                  Rastreador de deck com sobreposição na tela para o jogo Marvel
-                  Snap, rodando no Linux.
-                </p>
-                <ul class="tags">
-                  <li>Python</li>
-                  <li>Qt</li>
-                  <li>Linux</li>
-                </ul>
-              </article>
-            </div>
-          </section>
+              <h2># pessoais</h2>
 
-          <!-- --- INFORMAÇÕES CURRICULARES --- -->
-          <section id="curriculo" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ cat curriculo.txt</p>
+              <div class="grade">
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Palácio dos Livros</h3>
+                    <span class="selo">no ar</span>
+                  </div>
+                  <p>
+                    App web pensado para o celular, que controla um estoque de livros
+                    estante por estante, com busca, ordem A–Z por autor e
+                    arrastar-e-soltar. Feito para a minha mãe para ajudar no catálogo de seu acervo.
+                  </p>
+                  <ul class="tags">
+                    <li>JavaScript</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>Firebase</li>
+                  </ul>
+                  <div class="links">
+                    <a href="https://ncsf01.github.io/book-palace/" target="_blank" rel="noopener noreferrer">[ site ]</a>
+                    <a href="https://github.com/ncsf01/book-palace" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
 
-            <h2># experiência profissional</h2>
-            <ul class="linha-tempo">
-              <li>
-                <span class="data">11/2022 – 01/2024</span>
-                <strong>Analista de Redes e Comunicação de Dados</strong>
-                <span class="local">SC SJC Comércio de Roupas LTDA (lojas Polo Club)</span>
-                <span>
-                  Auxiliar de TI responsável pelo cadastro de produtos e
-                  funcionários no ERP TOTVS Moda e pelo suporte helpdesk às lojas.
-                </span>
-              </li>
-              <li>
-                <span class="data">08/2016 – 12/2018</span>
-                <strong>Administrador do Núcleo de Games</strong>
-                <span class="local">Universidade Anhembi Morumbi</span>
-                <span>
-                  Responsável pela distribuição e conservação dos jogos e
-                  computadores do Núcleo de Games da universidade.
-                </span>
-              </li>
-            </ul>
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Ficha de personagem UNPC</h3>
+                    <span class="selo">no ar</span>
+                  </div>
+                  <p>
+                    Ficha online para um RPG de mesa, com gerenciador de personagens,
+                    rolador de dados, gerador aleatório e modo escuro.
+                  </p>
+                  <ul class="tags">
+                    <li>JavaScript</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                  </ul>
+                  <div class="links">
+                    <a href="https://ncsf01.github.io/unpc-character-sheet/" target="_blank" rel="noopener noreferrer">[ site ]</a>
+                    <a href="https://github.com/ncsf01/unpc-character-sheet" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
 
-            <h2># formação</h2>
-            <ul class="linha-tempo">
-              <li>
-                <span class="data">2026 – atual</span>
-                <strong>Desenvolvimento de Software Multiplataforma</strong>
-                <span class="local">FATEC São José dos Campos · cursando</span>
-              </li>
-              <li>
-                <span class="data">2022 – 2024</span>
-                <strong>Gestão de Tecnologia da Informação</strong>
-                <span class="local">Unifeob</span>
-              </li>
-              <li>
-                <span class="data">2015 – 2018</span>
-                <strong>Design de Games</strong>
-                <span class="local">Universidade Anhembi Morumbi</span>
-              </li>
-              <li>
-                <span class="data">2009 – 2011</span>
-                <strong>Ensino Médio e Técnico em Informática</strong>
-                <span class="local">ETEP</span>
-              </li>
-            </ul>
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Ficha de personagem Symbaroum</h3>
+                    <span class="selo selo-dev">em desenvolvimento</span>
+                  </div>
+                  <p>
+                    Ficha online para o RPG Symbaroum, com atributos, estatísticas
+                    de combate, corrupção e habilidades.
+                  </p>
+                  <ul class="tags">
+                    <li>JavaScript</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                  </ul>
+                  <div class="links">
+                    <a href="https://ncsf01.github.io/symbaroum-character-sheet-v1/" target="_blank" rel="noopener noreferrer">[ versão 1 ]</a>
+                    <a href="https://github.com/ncsf01/symbaroum-character-sheet-v1" target="_blank" rel="noopener noreferrer">[ código ]</a>
+                  </div>
+                </article>
 
-            <h2># certificações e cursos</h2>
-            <ul class="lista">
-              <li>Curso de Informática · ETEP</li>
-              <li>The Complete Full-Stack Web Development Bootcamp · Udemy (em andamento)</li>
-            </ul>
+                <article class="cartao">
+                  <div class="cartao-topo">
+                    <h3>Snap Tracker</h3>
+                    <span class="selo selo-dev">em desenvolvimento</span>
+                  </div>
+                  <p>
+                    Rastreador de deck com sobreposição na tela para o jogo Marvel
+                    Snap, rodando no Linux.
+                  </p>
+                  <ul class="tags">
+                    <li>Python</li>
+                    <li>Qt</li>
+                    <li>Linux</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
 
-            <h2># hard skills</h2>
-            <ul class="tags">
-              <li>Python</li>
-              <li>JavaScript</li>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>Bootstrap</li>
-              <li>C#</li>
-              <li>SQL</li>
-              <li>Bash</li>
-              <li>Linux</li>
-              <li>Git e GitHub</li>
-              <li>Redes</li>
-              <li>Hardware</li>
-            </ul>
+            <!-- links para o workspace anterior e o próximo -->
+            <nav class="ws-navegacao" aria-label="Trocar de workspace">
+              <a class="ws-anterior" href="#apresentacao">[ ← 1:whoami ]</a>
+              <a class="ws-proximo" href="#curriculo">[ 3:curriculo → ]</a>
+            </nav>
 
-            <h2># soft skills</h2>
-            <ul class="tags">
-              <li>Trabalho em equipe</li>
-              <li>Resolução de problemas</li>
-              <li>Comunicação</li>
-              <li>Adaptabilidade</li>
-            </ul>
-
-            <h2># idiomas</h2>
-            <ul class="lista">
-              <li>Português · nativo</li>
-              <li>Inglês · fluente</li>
-            </ul>
-          </section>
-
-          <!-- --- CONTATO --- -->
-          <section id="contato" class="secao">
-            <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ contato</p>
-
-            <ul class="contatos">
-              <li>
-                <span class="rotulo">GitHub</span>
-                <a href="https://github.com/ncsf01" target="_blank" rel="noopener noreferrer">github.com/ncsf01</a>
-              </li>
-              <li>
-                <span class="rotulo">LinkedIn</span>
-                <a href="https://www.linkedin.com/in/nicolascsf/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nicolascsf</a>
-              </li>
-            </ul>
-          </section>
-
-          <!-- linha final piscando como um terminal esperando um comando -->
-          <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ <span class="cursor" aria-hidden="true"></span></p>
+            <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/projetos</span>$ <span class="cursor" aria-hidden="true"></span></p>
+          </div>
         </div>
       </div>
+
+      <!-- ===== WORKSPACE 3: curriculo ===== -->
+      <div class="workspace">
+        <div class="janela">
+          <div class="barra-janela" aria-hidden="true">
+            <span class="bolinhas"><i></i><i></i><i></i></span>
+            <span class="titulo-janela">[3] ncsf01@www: ~/curriculo</span>
+          </div>
+
+          <div class="corpo-janela">
+            <!-- --- INFORMAÇÕES CURRICULARES --- -->
+            <section id="curriculo" class="secao">
+              <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ cat curriculo.txt</p>
+
+              <h2># experiência profissional</h2>
+              <ul class="linha-tempo">
+                <li>
+                  <span class="data">11/2022 – 01/2024</span>
+                  <strong>Analista de Redes e Comunicação de Dados</strong>
+                  <span class="local">SC SJC Comércio de Roupas LTDA (lojas Polo Club)</span>
+                  <span>
+                    Auxiliar de TI responsável pelo cadastro de produtos e
+                    funcionários no ERP TOTVS Moda e pelo suporte helpdesk às lojas.
+                  </span>
+                </li>
+                <li>
+                  <span class="data">08/2016 – 12/2018</span>
+                  <strong>Administrador do Núcleo de Games</strong>
+                  <span class="local">Universidade Anhembi Morumbi</span>
+                  <span>
+                    Responsável pela distribuição e conservação dos jogos e
+                    computadores do Núcleo de Games da universidade.
+                  </span>
+                </li>
+              </ul>
+
+              <h2># formação</h2>
+              <ul class="linha-tempo">
+                <li>
+                  <span class="data">2026 – atual</span>
+                  <strong>Desenvolvimento de Software Multiplataforma</strong>
+                  <span class="local">FATEC São José dos Campos · cursando</span>
+                </li>
+                <li>
+                  <span class="data">2022 – 2024</span>
+                  <strong>Gestão de Tecnologia da Informação</strong>
+                  <span class="local">Unifeob</span>
+                </li>
+                <li>
+                  <span class="data">2015 – 2018</span>
+                  <strong>Design de Games</strong>
+                  <span class="local">Universidade Anhembi Morumbi</span>
+                </li>
+                <li>
+                  <span class="data">2009 – 2011</span>
+                  <strong>Ensino Médio e Técnico em Informática</strong>
+                  <span class="local">ETEP</span>
+                </li>
+              </ul>
+
+              <h2># certificações e cursos</h2>
+              <ul class="lista">
+                <li>Curso de Informática · ETEP</li>
+                <li>The Complete Full-Stack Web Development Bootcamp · Udemy (em andamento)</li>
+              </ul>
+
+              <h2># hard skills</h2>
+              <ul class="tags">
+                <li>Python</li>
+                <li>JavaScript</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>Bootstrap</li>
+                <li>C#</li>
+                <li>SQL</li>
+                <li>Bash</li>
+                <li>Linux</li>
+                <li>Git e GitHub</li>
+                <li>Redes</li>
+                <li>Hardware</li>
+              </ul>
+
+              <h2># soft skills</h2>
+              <ul class="tags">
+                <li>Trabalho em equipe</li>
+                <li>Resolução de problemas</li>
+                <li>Comunicação</li>
+                <li>Adaptabilidade</li>
+              </ul>
+
+              <h2># idiomas</h2>
+              <ul class="lista">
+                <li>Português · nativo</li>
+                <li>Inglês · fluente</li>
+              </ul>
+            </section>
+
+            <!-- links para o workspace anterior e o próximo -->
+            <nav class="ws-navegacao" aria-label="Trocar de workspace">
+              <a class="ws-anterior" href="#projetos">[ ← 2:projetos ]</a>
+              <a class="ws-proximo" href="#contato">[ 4:contato → ]</a>
+            </nav>
+
+            <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/curriculo</span>$ <span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== WORKSPACE 4: contato ===== -->
+      <div class="workspace">
+        <div class="janela">
+          <div class="barra-janela" aria-hidden="true">
+            <span class="bolinhas"><i></i><i></i><i></i></span>
+            <span class="titulo-janela">[4] ncsf01@www: ~/contato</span>
+          </div>
+
+          <div class="corpo-janela">
+            <!-- --- CONTATO --- -->
+            <section id="contato" class="secao">
+              <p class="prompt"><span class="usuario">ncsf01@www</span>:<span class="caminho">~</span>$ contato</p>
+
+              <ul class="contatos">
+                <li>
+                  <span class="rotulo">GitHub</span>
+                  <a href="https://github.com/ncsf01" target="_blank" rel="noopener noreferrer">github.com/ncsf01</a>
+                </li>
+                <li>
+                  <span class="rotulo">LinkedIn</span>
+                  <a href="https://www.linkedin.com/in/nicolascsf/" target="_blank" rel="noopener noreferrer">linkedin.com/in/nicolascsf</a>
+                </li>
+              </ul>
+            </section>
+
+            <!-- links para o workspace anterior e o próximo -->
+            <nav class="ws-navegacao" aria-label="Trocar de workspace">
+              <a class="ws-anterior" href="#curriculo">[ ← 3:curriculo ]</a>
+            </nav>
+
+            <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/contato</span>$ <span class="cursor" aria-hidden="true"></span></p>
+          </div>
+        </div>
+
+        <footer class="rodape">
+          <p>© 2026 Nícolas César Silva Ferreira · feito com HTML, CSS e JavaScript</p>
+        </footer>
+      </div>
+
     </main>
 
     <!-- --- JANELA DE DETALHES DO PROJETO API ---
@@ -452,10 +518,6 @@
         <p class="prompt prompt-final"><span class="usuario">ncsf01@www</span>:<span class="caminho">~/projetos/credito-inclusivo</span>$ <span class="cursor" aria-hidden="true"></span></p>
       </div>
     </dialog>
-
-    <footer class="rodape">
-      <p>© 2026 Nícolas César Silva Ferreira · feito com HTML, CSS e JavaScript</p>
-    </footer>
 
     <script src="js/main.js"></script>
   </body>
