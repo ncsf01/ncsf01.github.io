@@ -424,10 +424,6 @@ h3 {
   color: var(--aviso);
 }
 
-.empresa {
-  color: var(--texto-fraco);
-}
-
 /* links no final dos cartões, como [ site ] [ código ] */
 .links {
   display: flex;
