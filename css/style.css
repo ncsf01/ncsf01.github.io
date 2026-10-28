@@ -269,7 +269,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(8, 26px);
   grid-auto-rows: 18px;
-  margin: 4px 0 20px;
+  margin-top: 14px;
 }
 
 .cores span:nth-child(1)  { background-color: var(--term-0); }
