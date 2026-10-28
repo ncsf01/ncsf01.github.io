@@ -184,19 +184,6 @@ h3 {
   margin: 0 auto;
 }
 
-/* links [ ← anterior ] e [ próximo → ] no fim de cada janela */
-.ws-navegacao {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 20px;
-}
-
-/* quando só tem o link "próximo", ele fica na direita */
-.ws-proximo {
-  margin-left: auto;
-}
-
 .dica {
   max-width: var(--largura);
   margin: 12px auto 0;
@@ -477,9 +464,6 @@ h3 {
   color: var(--aviso);
 }
 
-.empresa {
-  color: var(--texto-fraco);
-}
 
 /* links no final dos cartões, como [ site ] [ código ] */
 .links {
