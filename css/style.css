@@ -329,12 +329,6 @@ h3 {
 .cores span:nth-child(15) { background-color: var(--term-14); }
 .cores span:nth-child(16) { background-color: var(--term-15); }
 
-.subtitulo {
-  margin: 0 0 8px;
-  color: var(--texto-fraco);
-  font-style: italic;
-}
-
 .nota {
   color: var(--texto-fraco);
 }
