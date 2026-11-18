@@ -149,6 +149,15 @@ const indiceInicial = indiceDaSecao(location.hash.slice(1));
 irPara(indiceInicial === -1 ? 0 : indiceInicial, false);
 marcarNoMenu(indiceInicial === -1 ? 0 : indiceInicial);
 
+// com um endereço tipo ".../#eventos", o navegador também rola o workspace para baixo até a seção
+// e a barra da janela some; quando a página termina de carregar, voltamos todos para o topo
+window.addEventListener("load", function () {
+  workspaces.forEach(function (workspace) {
+    workspace.scrollTop = 0;
+  });
+  irPara(indiceInicial === -1 ? 0 : indiceInicial, false);
+});
+
 // --- JANELA DE DETALHES ---
 
 // botões com "data-abrir" abrem a janela cujo id está escrito nele
@@ -182,6 +191,7 @@ const comandosPorTela = {
   apresentacao: ["neofetch", "uptime", "echo $SHELL", "history | tail -3", "ls ~/projetos"],
   projetos: ["git status", "git log --oneline", "ls -la", "cat README.md", "xed index.html"],
   curriculo: ["grep -i python skills.txt", "wc -l curriculo.txt", "cat formacao.txt", "less curriculo.txt"],
+  eventos: ["ls ~/eventos", "cat maratona.txt", "cal 11 2026", "date"],
   contato: ["ping -c 1 github.com", "echo \"vamos conversar?\"", "xdg-open linkedin.com/in/nicolascsf"],
   "detalhes-api": ["flask run", "git log --oneline", "cat requirements.txt", "python3 app.py"],
 };

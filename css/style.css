@@ -521,6 +521,16 @@ h3 {
 }
 
 
+/* foto dos eventos, no topo do cartão: todas no mesmo formato (4 por 3), cortando as sobras */
+.foto-evento {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+}
+
 /* links no final dos cartões, como [ site ] [ código ] */
 .links {
   display: flex;
