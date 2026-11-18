@@ -173,3 +173,112 @@ document.querySelectorAll("dialog").forEach(function (janela) {
     }
   });
 });
+
+// --- PROMPT DIGITANDO ---
+// no fim de cada janela, o prompt digita um comando, espera, apaga e digita outro
+
+// comandos de cada tela (a chave é o id da seção, ou da janela de detalhes)
+const comandosPorTela = {
+  apresentacao: ["neofetch", "uptime", "echo $SHELL", "history | tail -3", "ls ~/projetos"],
+  projetos: ["git status", "git log --oneline", "ls -la", "cat README.md", "xed index.html"],
+  curriculo: ["grep -i python skills.txt", "wc -l curriculo.txt", "cat formacao.txt", "less curriculo.txt"],
+  contato: ["ping -c 1 github.com", "echo \"vamos conversar?\"", "xdg-open linkedin.com/in/nicolascsf"],
+  "detalhes-api": ["flask run", "git log --oneline", "cat requirements.txt", "python3 app.py"],
+};
+
+// easter eggs: aparecem de vez em nunca, com uma resposta na linha de baixo
+const easterEggs = [
+  { comando: "echo $APELIDO", resposta: "nickmouse 🐭" },
+  { comando: "roll 1d20", resposta: "20! acerto crítico 🎲" },
+  { comando: "sudo make me a sandwich", resposta: "ok. 🥪" },
+];
+
+// chance de um comando ser easter egg (0.05 = 5%, mais ou menos 1 a cada 20)
+const chanceDeEasterEgg = 0.05;
+
+// espera "ms" milissegundos (1000 ms = 1 segundo)
+function esperar(ms) {
+  return new Promise(function (continuar) {
+    setTimeout(continuar, ms);
+  });
+}
+
+// sorteia um item de uma lista, sem repetir o anterior
+function sortear(lista, anterior) {
+  let item;
+  do {
+    item = lista[Math.floor(Math.random() * lista.length)];
+  } while (lista.length > 1 && item === anterior);
+  return item;
+}
+
+// "async" deixa a função usar "await esperar(...)", que pausa só ela, sem travar a página
+async function animarPrompt(prompt, comandos) {
+  const cursor = prompt.querySelector(".cursor");
+
+  // onde as letras aparecem: logo antes do cursor
+  const texto = document.createElement("span");
+  texto.setAttribute("aria-hidden", "true");
+  prompt.insertBefore(texto, cursor);
+
+  // linha de resposta dos easter eggs, embaixo do prompt (começa escondida)
+  const resposta = document.createElement("p");
+  resposta.className = "resposta-terminal";
+  resposta.setAttribute("aria-hidden", "true");
+  resposta.hidden = true;
+  prompt.after(resposta);
+
+  // cada prompt começa num momento diferente, para não ficarem todos iguais
+  await esperar(500 + Math.random() * 1500);
+
+  let anterior = null;
+
+  while (true) {
+    const ehEasterEgg = Math.random() < chanceDeEasterEgg;
+    const egg = ehEasterEgg ? sortear(easterEggs) : null;
+    const comando = ehEasterEgg ? egg.comando : sortear(comandos, anterior);
+    anterior = comando;
+
+    // digitando: o cursor para de piscar, como num terminal de verdade
+    cursor.classList.add("parado");
+    for (const letra of comando) {
+      texto.textContent += letra;
+      await esperar(60 + Math.random() * 80);
+    }
+    cursor.classList.remove("parado");
+
+    if (egg) {
+      await esperar(400);
+      resposta.textContent = egg.resposta;
+      resposta.hidden = false;
+      await esperar(3000);
+      resposta.hidden = true;
+    } else {
+      await esperar(1800);
+    }
+
+    // apagando, letra por letra
+    cursor.classList.add("parado");
+    while (texto.textContent.length > 0) {
+      texto.textContent = texto.textContent.slice(0, -1);
+      await esperar(35);
+    }
+    cursor.classList.remove("parado");
+
+    await esperar(900);
+  }
+}
+
+// quem pede "menos animação" ao sistema fica só com o cursor parado
+if (!menosAnimacao) {
+  document.querySelectorAll(".prompt-final").forEach(function (prompt) {
+    // descobre de qual tela é o prompt: a seção do workspace ou a janela de detalhes
+    const tela = prompt.closest(".workspace, dialog");
+    const secao = tela.querySelector("section");
+    const chave = tela.tagName === "DIALOG" ? tela.id : secao.id;
+
+    if (comandosPorTela[chave]) {
+      animarPrompt(prompt, comandosPorTela[chave]);
+    }
+  });
+}

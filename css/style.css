@@ -655,6 +655,17 @@ h3 {
   content: "\00a0"; /* espaço que não quebra a linha */
 }
 
+/* enquanto o prompt está digitando ou apagando, o cursor fica aceso, sem piscar */
+.cursor.parado {
+  animation: none;
+}
+
+/* a resposta dos easter eggs, na linha de baixo do prompt */
+.resposta-terminal {
+  margin: -16px 0 24px;
+  color: var(--texto);
+}
+
 @keyframes piscar {
   50% {
     opacity: 0;
