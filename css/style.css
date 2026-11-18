@@ -173,6 +173,9 @@ h3 {
   flex: 0 0 100%;
   height: 100%;
   overflow-y: auto;
+  /* janela, dica e rodapé um embaixo do outro; a janela estica para ocupar a altura que sobrar */
+  display: flex;
+  flex-direction: column;
   scroll-snap-align: start;
   /* não deixa pular dois workspaces de uma vez num deslize rápido */
   scroll-snap-stop: always;
@@ -180,11 +183,69 @@ h3 {
 }
 
 .workspace > .janela {
+  /* "flex: 1 0 auto": a janela cresce até o fim da tela, como um terminal maximizado,
+     mas nunca encolhe abaixo do tamanho do conteúdo */
+  flex: 1 0 auto;
+  width: 100%;
   max-width: var(--largura);
   margin: 0 auto;
 }
 
+/* ---
+   BORDAS DA TELA (anterior / próximo)
+   --- */
+.borda {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  /* fica atrás do cabeçalho, para não cobrir a barra de workspaces */
+  z-index: 5;
+  /* a largura é o espaço livre entre a janela e a borda da tela (entre 16px e 120px) */
+  width: min(120px, max(16px, calc((100vw - var(--largura)) / 2)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 2rem;
+  cursor: pointer;
+  /* invisível até o mouse chegar perto */
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.borda-anterior {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.07), transparent);
+}
+
+.borda-proxima {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.07), transparent);
+}
+
+/* com o mouse em cima (ou com foco pelo teclado), a borda esmaece de leve e mostra a setinha */
+.borda:hover,
+.borda:focus-visible {
+  opacity: 1;
+}
+
+/* no primeiro workspace não tem "anterior", e no último não tem "próximo" */
+.borda[hidden] {
+  display: none;
+}
+
+/* em telas de toque não tem mouse para chegar perto: lá se troca deslizando */
+@media (hover: none) {
+  .borda {
+    display: none;
+  }
+}
+
 .dica {
+  flex-shrink: 0;
   max-width: var(--largura);
   margin: 12px auto 0;
   color: var(--texto-fraco);
@@ -602,6 +663,10 @@ h3 {
 
 /* remove cursor piscando com "menos animação" */
 @media (prefers-reduced-motion: reduce) {
+  .borda {
+    transition: none;
+  }
+
   .workspaces {
     scroll-behavior: auto;
   }
@@ -615,6 +680,7 @@ h3 {
    RODAPÉ
    --- */
 .rodape {
+  flex-shrink: 0;
   padding: 16px 16px 0;
   text-align: center;
   color: var(--texto-fraco);
@@ -652,6 +718,10 @@ h3 {
 
   .workspace {
     padding: 12px 10px 24px;
+  }
+
+  .borda {
+    display: none;
   }
 
   .corpo-janela {

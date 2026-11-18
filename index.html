@@ -439,6 +439,14 @@
 
     </main>
 
+    <!-- bordas da tela: clicar leva ao workspace anterior ou ao próximo (só no computador) -->
+    <button class="borda borda-anterior" type="button" data-direcao="-1" aria-label="Workspace anterior">
+      <span aria-hidden="true">‹</span>
+    </button>
+    <button class="borda borda-proxima" type="button" data-direcao="1" aria-label="Próximo workspace">
+      <span aria-hidden="true">›</span>
+    </button>
+
     <!-- --- JANELA DE DETALHES DO PROJETO API ---
          <dialog> é uma janela que abre por cima da página; o JavaScript abre e fecha -->
     <dialog id="detalhes-api" class="janela janela-detalhes" aria-labelledby="titulo-detalhes-api">

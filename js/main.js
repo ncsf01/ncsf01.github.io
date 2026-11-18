@@ -35,12 +35,27 @@ function workspaceAtual() {
   return Math.round(esteira.scrollLeft / esteira.clientWidth);
 }
 
+// as bordas da tela que levam ao workspace anterior e ao próximo
+const bordaAnterior = document.querySelector(".borda-anterior");
+const bordaProxima = document.querySelector(".borda-proxima");
+
 // deixa verde no menu só o workspace com esse número
 function marcarNoMenu(indice) {
   linksDoMenu.forEach(function (link, posicao) {
     link.classList.toggle("ativo", posicao === indice);
   });
+
+  // no primeiro workspace some a borda "anterior"; no último, a "próxima"
+  bordaAnterior.hidden = indice === 0;
+  bordaProxima.hidden = indice === workspaces.length - 1;
 }
+
+// clicar numa borda vai para o workspace ao lado (-1 = anterior, 1 = próximo)
+[bordaAnterior, bordaProxima].forEach(function (borda) {
+  borda.addEventListener("click", function () {
+    irPara(workspaceAtual() + Number(borda.dataset.direcao), true);
+  });
+});
 
 // qualquer link que aponte para uma seção ("#projetos", "#contato"...) troca de workspace
 document.querySelectorAll('a[href^="#"]').forEach(function (link) {
@@ -73,21 +88,49 @@ workspaces.forEach(function (workspace) {
   observador.observe(workspace);
 });
 
-// setas ← e → do teclado trocam de workspace
+// rola para cima ou para baixo o workspace que está na tela
+function rolarWorkspace(distancia, animar) {
+  workspaces[workspaceAtual()].scrollBy({
+    top: distancia,
+    behavior: animar && !menosAnimacao ? "smooth" : "auto",
+  });
+}
+
+// teclado: ← → trocam de workspace; ↑ ↓, PageUp, PageDown, Home e End rolam o workspace
 document.addEventListener("keydown", function (evento) {
   const temJanelaAberta = document.querySelector("dialog[open]") !== null;
 
-  if (temJanelaAberta) {
-    return; // com a janela de detalhes aberta, as setas não trocam de workspace
+  // com a janela de detalhes aberta, o teclado fica com ela;
+  // e com Alt, Ctrl ou Cmd apertado é um atalho do navegador (ex.: Alt + ← volta a página)
+  if (temJanelaAberta || evento.altKey || evento.ctrlKey || evento.metaKey) {
+    return;
   }
 
+  const workspace = workspaces[workspaceAtual()];
+  // segurando a tecla, o navegador repete o evento; aí rolamos sem animação, para não travar
+  const animar = !evento.repeat;
+
   if (evento.key === "ArrowRight") {
-    evento.preventDefault();
     irPara(workspaceAtual() + 1, true);
   } else if (evento.key === "ArrowLeft") {
-    evento.preventDefault();
     irPara(workspaceAtual() - 1, true);
+  } else if (evento.key === "ArrowDown") {
+    rolarWorkspace(60, animar);
+  } else if (evento.key === "ArrowUp") {
+    rolarWorkspace(-60, animar);
+  } else if (evento.key === "PageDown") {
+    rolarWorkspace(workspace.clientHeight * 0.9, animar);
+  } else if (evento.key === "PageUp") {
+    rolarWorkspace(-workspace.clientHeight * 0.9, animar);
+  } else if (evento.key === "Home") {
+    rolarWorkspace(-workspace.scrollHeight, true);
+  } else if (evento.key === "End") {
+    rolarWorkspace(workspace.scrollHeight, true);
+  } else {
+    return; // qualquer outra tecla funciona normalmente
   }
+
+  evento.preventDefault();
 });
 
 // se a janela do navegador mudar de tamanho, continua no mesmo workspace
